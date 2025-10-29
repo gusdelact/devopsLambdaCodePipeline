@@ -18,13 +18,16 @@ phases:
 
   build:
     commands:
+      - echo "Validando variable ARTIFACT_BUCKET..."
+      - |
+        if [ -z "$ARTIFACT_BUCKET" ]; then
+          echo "ERROR: La variable ARTIFACT_BUCKET no está definida."
+          exit 1
+        fi
       - echo "Ejecutando SAM build..."
       - sam build --use-container
-      - echo "Variable ARTIFACT_BUCKET ($ARTIFACT_BUCKET)"
       - echo "Empaquetando plantilla SAM..."
-      - sam package \
-          --s3-bucket $ARTIFACT_BUCKET \
-          --output-template-file packaged.yaml
+      - sam package --s3-bucket $ARTIFACT_BUCKET --output-template-file packaged.yaml
 
   post_build:
     commands:
