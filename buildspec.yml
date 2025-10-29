@@ -20,6 +20,7 @@ phases:
     commands:
       - echo "Ejecutando SAM build..."
       - sam build --use-container
+      - echo "Variable ARTIFACT_BUCKET ($ARTIFACT_BUCKET)"
       - echo "Empaquetando plantilla SAM..."
       - sam package \
           --s3-bucket $ARTIFACT_BUCKET \
